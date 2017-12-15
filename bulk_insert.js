@@ -1,6 +1,7 @@
-console.log("Connect to mySql and join_us DB");
 var mysql = require('mysql');
+var faker = require('faker');
 
+ 
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'marktgraybill',
@@ -8,13 +9,13 @@ var connection = mysql.createConnection({
 });
  
  
-
-var data = [
-  ['blah@gmail.com', '2017-05-01 03:51:37'],
-  ['ugh@gmail.com', '2017-05-02 03:52:37'],
-  ['meh@gmail.com', '2017-05-03 03:53:37'],
-  ['Gru@gmail.com', '2017-05-04 03:54:37']
-]; 
+var data = [];
+for(var i = 0; i < 500; i++){
+    data.push([
+        faker.internet.email(),
+        faker.date.past(10)
+    ]);
+}
  
 var q = 'INSERT INTO users (email, created_at) VALUES ?';
  
