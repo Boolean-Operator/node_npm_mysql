@@ -1,7 +1,9 @@
 var mysql = require('mysql');
 var faker = require('faker');
+// !!!!  faker docs is in the wiki  !!!!
 
  
+//  establish parameters for connection to DB
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'marktgraybill',
@@ -9,6 +11,7 @@ var connection = mysql.createConnection({
 });
  
  
+// Loop to make 500 fake users
 var data = [];
 for(var i = 0; i < 500; i++){
     data.push([
@@ -16,7 +19,8 @@ for(var i = 0; i < 500; i++){
         faker.date.past(10)
     ]);
 }
- 
+
+// INSERT fake users to DB 
 var q = 'INSERT INTO users (email, created_at) VALUES ?';
  
 connection.query(q, [data], function(err, result) {
@@ -24,6 +28,7 @@ connection.query(q, [data], function(err, result) {
   console.log(result);
 });
  
+// confirm number of users added
 var rq = 'SELECT COUNT(*) AS total FROM users';
 
 connection.query(rq, function (error, results, fields) {
